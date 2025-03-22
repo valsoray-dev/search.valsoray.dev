@@ -28,6 +28,15 @@
       ]
     },
     {
+      "source": "/opensearch.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/opensearchdescription+xml"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {

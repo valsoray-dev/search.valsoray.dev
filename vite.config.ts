@@ -6,7 +6,7 @@ export default defineConfig({
 		VitePWA({
 			registerType: "autoUpdate",
 			injectRegister: "script-defer",
-			includeAssets: ["favicon.ico"],
+			includeAssets: ["favicon.ico", "opensearch.xml"],
 
 			manifest: {
 				name: "search.valsoray.dev",
