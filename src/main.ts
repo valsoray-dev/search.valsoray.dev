@@ -1,3 +1,4 @@
+import "./style.css";
 import { BANGS } from "./bangs";
 
 const DEFAULT_BANG = "g"; // Google
@@ -8,26 +9,45 @@ const BANG_REMOVE_PATTERN = /\s*!\S+\s*/i;
 function renderPage() {
 	const app = document.querySelector<HTMLDivElement>("#app");
 	if (app) {
-		app.innerHTML = "<h1>Hello World!</h1>";
+		app.innerHTML = `
+      <h1>Search for <i>anything</i></h1>
+      <form action="/" method="GET">
+        <input type="text" name="q" />
+        <button type="submit">Search</button>
+      </form>
+      `;
 	}
+}
+
+interface UrlParams {
+	query: string;
+	defaultBang: string;
+}
+
+function parseUrlParams(): UrlParams {
+	const params = new URLSearchParams(window.location.search);
+
+	return {
+		query: params.get("q") ?? "",
+		defaultBang: params.get("default")?.trim().toLowerCase() ?? DEFAULT_BANG,
+	};
 }
 
 function createRedirectUrl(bang: string, query: string): string | null {
 	const url = BANGS.get(bang.toLowerCase());
-	return url
-		? url.replace(SEARCH_PLACEHOLDER, encodeURIComponent(query))
-		: null;
+	if (!url) return null;
+
+	const encodedQuery = encodeURIComponent(query.trim());
+	return url.replace(SEARCH_PLACEHOLDER, encodedQuery);
 }
 
 function main() {
-	const params = new URLSearchParams(window.location.search);
-	const query = params.get("q")?.trim() ?? "";
+	const { query, defaultBang } = parseUrlParams();
+
+	// if no query specified, render default page
 	if (!query) {
 		return renderPage();
 	}
-
-	const defaultBang =
-		params.get("default")?.trim().toLowerCase() ?? DEFAULT_BANG;
 
 	const match = query.match(BANG_PATTERN);
 	if (match) {
@@ -40,7 +60,8 @@ function main() {
 		}
 	}
 
-	const defaultUrl = createRedirectUrl(defaultBang, query);
+	// can be null if DEFAULT_BANG is not found in BANGS
+	const defaultUrl = createRedirectUrl(defaultBang, query.trim());
 	if (defaultUrl) {
 		return window.location.replace(defaultUrl);
 	}
