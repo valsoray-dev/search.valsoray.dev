@@ -26,10 +26,12 @@ interface UrlParams {
 
 function parseUrlParams(): UrlParams {
 	const params = new URLSearchParams(window.location.search);
+	const defaultBang =
+		localStorage.getItem("defaultBang") ?? params.get("default");
 
 	return {
 		query: params.get("q") ?? "",
-		defaultBang: params.get("default")?.trim().toLowerCase() ?? DEFAULT_BANG,
+		defaultBang: defaultBang?.trim().toLowerCase() ?? DEFAULT_BANG,
 	};
 }
 
