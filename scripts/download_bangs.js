@@ -8,9 +8,9 @@ const filePath = path.resolve(process.cwd(), "bang.js");
 const file = fs.createWriteStream(filePath);
 
 https.get(BANGS_URL, (response) => {
-	response.pipe(file);
+  response.pipe(file);
 
-	file.on("finish", () => {
-		console.log(`File downloaded successfully to ${filePath}`);
-	});
+  file.on("finish", () => {
+    console.log(`File downloaded successfully to ${filePath}`);
+  });
 });
