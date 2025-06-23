@@ -3916,7 +3916,7 @@ export const BANGS = new Map<string, string>([
 	["fedoramagazine", "https://fedoramagazine.org/?s={{{s}}}"],
 	["fedorapkg", "https://apps.fedoraproject.org/packages/s/{{{s}}}"],
 	["fedorawiki", "https://fedoraproject.org/wiki/Special:Search?search={{{s}}}&go=Go"],
-	["fedpack", "https://apps.fedoraproject.org/packages/s/{{{s}}}"],
+	["fedpack", "https://packages.fedoraproject.org/search?query={{{s}}}"],
 	["fedreg", "https://www.federalregister.gov/documents/search?conditions%5Bterm%5D={{{s}}}"],
 	["feedbooks", "http://www.feedbooks.com/search?query={{{s}}}"],
 	["feedly", "https://feedly.com/i/search/{{{s}}}"],
